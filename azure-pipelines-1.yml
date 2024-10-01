@@ -90,3 +90,63 @@ stages:
             buildContext: './'
             repository: 'sd5294containerregistry.azurecr.io'
             tags: '$(SetBuildInfo.imageTag)'
+            
+        - task: Docker@2
+          displayName: Login to docker registry
+          inputs:
+            command: login
+            containerRegistry: $(registryEndpoint) # TODO
+
+        - task: trivy@1
+          displayName: 'trivy (injected)'
+          inputs:
+            # The version of Trivy to use
+            # Default: 1.5.0
+            version: '$(trivy__version)'
+            
+            # Run Trivy using the aquasec/trivy docker image
+            # This can be useful when being rate limited by dockerhub etc.
+            # Default: false
+            docker: $(trivy__docker)
+
+            # Use Docker login task DockerConfig
+            # Use DOCKER_CONFIG ENV as DockerConfig (set by Docker login task).
+            # loginDockerConfig: $(trivy__loginDockerConfig)
+
+            # Enable debug logging in build output
+            debug: $(trivy__debug)
+        
+            # The path to scan
+            # The specified path will be scanned using an 'fs' scan type. If this option is used, the 'image' option cannot be set.
+            # path: $(trivy__path)
+
+            # The image to scan
+            # The specified image will be scanned using an 'image' scan type. If this option is used, the 'path' option cannot be set.
+            # image: $(trivy__image)
+
+            # The severities (CRITICAL,HIGH,MEDIUM,LOW,UNKNOWN) to include in the scan (comma sperated)
+            # The specified path or image will be scanned for the provided serverities.
+            severities: '$(trivy__severities)'
+
+            # Ignore unpatched/unfixed vulnerabilities
+            # This means you can't fix these vulnerabilities even if you update all packages.
+            ignoreUnfixed: $(trivy__ignoreUnfixed)
+
+            # Exit code when Trivy detects issues.
+            # Set this to 0 to prevent the build failing when Trivy detects issues.
+            exitCode: $(trivy__exitCode)
+
+            # Aqua API Key
+            # The Aqua API Key is used to upload scan results to your Aqua Security account.
+            # aquaKey: $(trivy__aquaKey)
+
+            # Aqua API Secret
+            # The Aqua API Secret is used to upload scan results to your Aqua Security account.
+            # aquaSecret: $(trivy__aquaSecret)
+
+            # TODO
+            image: '$(trivy__image)'
+
+            # Additional Options
+            # Additional flags to pass to Trivy command line.
+            options: $(trivy__options)      
