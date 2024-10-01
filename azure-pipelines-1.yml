@@ -90,12 +90,6 @@ stages:
             buildContext: './'
             repository: 'sd5294containerregistry.azurecr.io'
             tags: '$(SetBuildInfo.imageTag)'
-            
-        - task: Docker@2
-          displayName: Login to docker registry
-          inputs:
-            command: login
-            containerRegistry: $(registryEndpoint) # TODO
 
         - task: trivy@1
           displayName: 'trivy (injected)'
