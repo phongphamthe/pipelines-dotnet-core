@@ -43,6 +43,13 @@ stages:
             SonarQube: 'sample'
             scannerMode: 'CLI'
             configMode: 'file'
+        - task: SonarQubeAnalyze@6
+          inputs:
+            jdkversion: 'JAVA_HOME_17_X64'
+
+        - task: SonarQubePublish@6
+          inputs:
+            pollingTimeoutSec: '300'
         # - task: UseDotNet@2
         #   displayName: Use .NET $(dotnetVersion)
         #   inputs:
