@@ -28,7 +28,9 @@ stages:
     - job: Checkout_and_Build_Job
       displayName: 'Checkout & Build Project'
       steps:
-        
+        - script: |
+            sonar-scanner -Dsonar.login='sqp_38f3484f9feeed11c003c8ff7f88f7b6ab8560e3' -X
+          displayName: 'Run SonarScanner with Debug Logging'
         - checkout: self
           persistCredentials: true
           fetchDepth: 0
