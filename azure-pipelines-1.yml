@@ -38,7 +38,11 @@ stages:
             echo "Buid.BuildNumber = $(Build.BuildNumber)"
             echo "Build.Repository.Name = $(Build.Repository.Name)"
             ls $(Build.SourcesDirectory)
-
+        - task: SonarQubePrepare@6
+          inputs:
+            SonarQube: 'sample'
+            scannerMode: 'CLI'
+            configMode: 'file'
         # - task: UseDotNet@2
         #   displayName: Use .NET $(dotnetVersion)
         #   inputs:
