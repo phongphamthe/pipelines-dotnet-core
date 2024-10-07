@@ -39,7 +39,7 @@ stages:
             ls $(Build.SourcesDirectory)
         
         - bash: |
-            curl "https://dev-stepone-sonarqube.nashtechglobal.com/api/v2/analysis/version"
+            curl --header 'Authorization: Bearer sqa_cf8cf23b4d8b337bbd86a10c52c29ad9f48dfb22' "https://dev-stepone-sonarqube.nashtechglobal.com/api/v2/analysis/version"
         - task: SonarQubePrepare@6
           inputs:
             SonarQube: 'sample'
