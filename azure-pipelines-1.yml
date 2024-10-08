@@ -32,12 +32,31 @@ stages:
         - checkout: self
           persistCredentials: true
           fetchDepth: 0
+        - task: SonarQubePrepare@6
+          inputs:
+            SonarQube: 'sample-new'
+            scannerMode: 'CLI'
+            configMode: 'file'
+            configFile: 'sonar-project.properties'
+            cliProjectKey: 'Sample_Sample_29f42f19-9f36-4b7d-9884-6c16d91b636b'
+            cliProjectName: 'Sample'
+            cliSources: '.'
+            extraProperties: |
+              sonar.projectKey=Sample_Sample_29f42f19-9f36-4b7d-9884-6c16d91b636b
 
-        - bash: |
-            echo "Build.SourcesDirectory = $(Build.SourcesDirectory)"
-            echo "Buid.BuildNumber = $(Build.BuildNumber)"
-            echo "Build.Repository.Name = $(Build.Repository.Name)"
-            ls $(Build.SourcesDirectory)
+        - task: SonarQubeAnalyze@6
+          inputs:
+            jdkversion: 'JAVA_HOME_17_X64'
+
+        - task: SonarQubePublish@6
+          inputs:
+            pollingTimeoutSec: '300'
+
+        # - bash: |
+        #     echo "Build.SourcesDirectory = $(Build.SourcesDirectory)"
+        #     echo "Buid.BuildNumber = $(Build.BuildNumber)"
+        #     echo "Build.Repository.Name = $(Build.Repository.Name)"
+        #     ls $(Build.SourcesDirectory)
 
         # - task: UseDotNet@2
         #   displayName: Use .NET $(dotnetVersion)
