@@ -34,15 +34,15 @@ stages:
           fetchDepth: 0
         - task: SonarQubePrepare@6
           inputs:
-            SonarQube: 'sample-new'
+            SonarQube: 'sample'
             scannerMode: 'CLI'
             configMode: 'file'
             configFile: 'sonar-project.properties'
-            cliProjectKey: 'Sample_Sample_ff74bf63-8422-4334-bd38-78f4881e5800'
+            cliProjectKey: 'sample'
             cliProjectName: 'Sample'
             cliSources: '.'
             extraProperties: |
-              sonar.projectKey=Sample_Sample_ff74bf63-8422-4334-bd38-78f4881e5800
+              sonar.projectKey=sample
 
         - task: SonarQubeAnalyze@6
           inputs:
