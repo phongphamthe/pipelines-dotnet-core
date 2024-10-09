@@ -38,11 +38,11 @@ stages:
             scannerMode: 'CLI'
             configMode: 'file'
             configFile: 'sonar-project.properties'
-            cliProjectKey: 'Sample_Sample_29f42f19-9f36-4b7d-9884-6c16d91b636b'
+            cliProjectKey: 'Sample_Sample_ff74bf63-8422-4334-bd38-78f4881e5800'
             cliProjectName: 'Sample'
             cliSources: '.'
             extraProperties: |
-              sonar.projectKey=Sample_Sample_29f42f19-9f36-4b7d-9884-6c16d91b636b
+              sonar.projectKey=Sample_Sample_ff74bf63-8422-4334-bd38-78f4881e5800
 
         - task: SonarQubeAnalyze@6
           inputs:
